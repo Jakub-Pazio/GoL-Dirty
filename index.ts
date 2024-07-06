@@ -97,8 +97,8 @@ const renderNextFrame = () => {
 }
 
 ncButton.addEventListener('click', () => {
-    renderNextFrame();
     game1 = game1.nextGame();
+    renderNextFrame();
 })
 
 renderGame();
