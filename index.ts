@@ -67,6 +67,18 @@ game1.board[1][3] = Cell.Alive;
 
 const rootDOM = document.getElementById('root')
 const ncButton = document.getElementById('newCycleButton')
+const startButton = document.getElementById('start')
+let isRunning = false;
+
+startButton.addEventListener('click', () => {
+    isRunning = true;
+})
+const stopButton = document.getElementById('stop')
+
+stopButton.addEventListener('click', () => {
+    isRunning = false;
+})
+
 
 const renderGame = () => {
     rootDOM.innerHTML = "";
@@ -102,3 +114,9 @@ ncButton.addEventListener('click', () => {
 })
 
 renderGame();
+setInterval(() => {
+    if (isRunning) {
+        game1 = game1.nextGame();
+        renderNextFrame();
+    }
+}, 200)
