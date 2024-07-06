@@ -73,7 +73,7 @@ const renderGame = () => {
     for (let x = 0; x < 100; x++) {
         for (let y = 0; y < 100; y++) {
             let square = document.createElement('div');
-            square.id = `square${x}${y}`;
+            square.id = `square${x},${y}`;
             square.style.width = "20px";
             square.style.height = "20px";
             square.style.display = "inline-block";
@@ -90,7 +90,7 @@ const renderGame = () => {
 const renderNextFrame = () => {
     for (let x = 0; x < 100; x++) {
         for (let y = 0; y < 100; y++) {
-            const square = document.getElementById(`square${x}${y}`);
+            const square = document.getElementById(`square${x},${y}`);
             square.style.backgroundColor = game1.board[x][y] === Cell.Alive ? "black" : "white";
         }
     }
