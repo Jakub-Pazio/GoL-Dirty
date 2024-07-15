@@ -9,7 +9,7 @@ interface Game {
   board: Cell[][];
   cellNeighNumber(x: number, y: number): number;
   cellNextState(x: number, y: number): Cell;
-  nextGame(): Game;
+  nextIteration(): Game;
   iterateBoard(): Generator<{ cell: Cell; x: number; y: number }>;
 }
 
@@ -20,6 +20,17 @@ class GameImpl implements Game {
       Array(size).fill(Cell.Dead)
     );
   }
+
+  /**
+   * Number of neighbour alive cells of a cell at (x, y)
+   * @param x x coordiante
+   * @param y y coordinate
+   * @returns
+   * @example
+   * let game = new GameImpl(10)
+   * game.cellNeighNumber[1][2] // You can pick any cell
+   * // Will return 0
+   */
   cellNeighNumber(x: number, y: number): number {
     const directions = [
       [-1, -1],
@@ -59,7 +70,7 @@ class GameImpl implements Game {
     }
     return res;
   }
-  nextGame(): GameImpl {
+  nextIteration(): GameImpl {
     let res = new GameImpl(SIZE);
     for (const { x, y } of this.iterateBoard()) {
       res.board[x][y] = this.cellNextState(x, y);
@@ -156,14 +167,20 @@ const renderNextFrame = () => {
 };
 
 ncButton.addEventListener("click", () => {
-  game1 = game1.nextGame();
+  game1 = game1.nextIteration();
   renderNextFrame();
 });
+
+const func = () => {
+  // Refactor this to be its own function
+
+  console.log(`${(Math.random() * 100).toFixed(2)}%`);
+};
 
 renderGame();
 setInterval(() => {
   if (isRunning) {
-    game1 = game1.nextGame();
+    game1 = game1.nextIteration();
     renderNextFrame();
   }
 }, 200);
